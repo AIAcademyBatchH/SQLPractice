@@ -1,0 +1,4 @@
+SELECT NVL(upper( LAST_NAME), 'No Employee assigned in this dept'), lower(FIRST_NAME),Salary,(Salary + emp.commission_pct*100) Total_SAl, 
+HIRE_DATE, dept.department_id, dept.department_name
+FROM EMPLOYEES emp , departments dept
+where   emp.department_id (+) = dept.department_id 
