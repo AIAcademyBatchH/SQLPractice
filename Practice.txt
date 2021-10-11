@@ -2,3 +2,9 @@ SELECT NVL(upper( LAST_NAME), 'No Employee assigned in this dept'), lower(FIRST_
 HIRE_DATE, dept.department_id, dept.department_name
 FROM EMPLOYEES emp , departments dept
 where   emp.department_id (+) = dept.department_id 
+
+
+
+https://docs.oracle.com/database/121/SQLRF/functions003.htm#SQLRF20035
+https://docs.oracle.com/middleware/1221/biee/BIVUG/GUID-BBA975C7-B2C5-4C94-A007-28775680F6A5.htm#BILUG685
+https://docs.oracle.com/cd/E17952_01/mysql-5.7-en/date-and-time-functions.html
