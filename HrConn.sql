@@ -149,15 +149,88 @@ from employees
 group by department_id;
 Having count(*) > 20;
 
-select count(a.EMPLOYEE_ID),b.DEPARTMENT_name from EMPLOYEES a,DEPARTMENTS b
+select count(a.EMPLOYEE_ID),b.DEPARTMENT_name 
+from EMPLOYEES a,DEPARTMENTS b
 where a.DEPARTMENT_ID=b.DEPARTMENT_ID
 group by b.DEPARTMENT_name
 
+select COUNT(a.EMPLOYEE_ID),b.DEPARTMENT_NAME from EMPLOYEES a ,DEPARTMENTS b 
+where a.DEPARTMENT_ID=b.DEPARTMENT_ID and b.DEPARTMENT_NAME in ('Sales','IT')
+group by b.DEPARTMENT_NAME
+
+SELECT
+   DEPARTMENT_ID,
+   COUNT(*)
+FROM
+   employees
+GROUP BY
+   DEPARTMENT_ID; 
+   
+WITH
+   T
+AS
+(
+   SELECT
+      d.DEPARTMENT_NAME
+   FROM
+      employees e, Departments d
+      where e.DEPARTMENT_ID=d.DEPARTMENT_ID
+)
+SELECT
+   *
+FROM
+   T
+PIVOT
+(
+   COUNT(*)
+   FOR  DEPARTMENT_NAME in ('Sales','IT','Marketing') 
+);
+
+
+SELECT
+      d.DEPARTMENT_NAME , count(*)
+   FROM
+      employees e, Departments d
+      where e.DEPARTMENT_ID=d.DEPARTMENT_ID
+      and DEPARTMENT_NAME in ('Sales','IT','Marketing') 
+      group by d.DEPARTMENT_NAME
+      
 
 
 
 
+with temp as 
+(
+select d.department_name from 
+(select department_id,count(*) as cnt from employees where department_id in (60,80) group by department_id) a 
+inner join departments d on a.department_id=d.department_id
+)
+select * from temp pivot (count(*) for department_name in ('IT','Sales'));
 
 
+Table
+dept   cnt
+Sales	34 -- 1
+IT	5 -- 1 
 
+
+;
+      Select department_name,Max(salary)
+      FROM
+      employees e, Departments d
+      where e.DEPARTMENT_ID=d.DEPARTMENT_ID
+      and department_name in ('IT','Sales')
+      group by department_name;
+      
+with temp as 
+(
+SELECT
+      department_name,salary, EMPLOYEE_ID
+      FROM
+      employees e, Departments d
+      where e.DEPARTMENT_ID=d.DEPARTMENT_ID
+     
+) 
+select * from temp pivot (  max(EMPLOYEE_ID) for department_name in ( 'IT', 'Sales')
+);
 
